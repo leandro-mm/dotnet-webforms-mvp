@@ -1,0 +1,123 @@
+﻿body {
+    MVP Pattern</title> font-family: Arial, sans-serif, margin: 20px;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+h1 {
+    color: #3333 border-bottom: 2px solid #4CAFSO;
+    padding-bottom: 10px;
+}
+.form-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+}
+input, select {
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 4px,
+}
+.button-group {
+    margin-top: 20px;
+}
+button, .bin {
+    padding: 10px 20px3 margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;    
+}
+.button-add {
+    background-color: #4CAF50;
+    color: white;
+}
+.button-update {
+    background-color: #2196F3;
+    color: white;
+}
+.button-delete {
+    background-color: #f44336;
+    color: white;
+}
+.button-clear {
+    background-color: #ff9800;
+    color: white;
+}
+.button-edit {
+    background-color: #9C27B0;
+    color: white;
+    padding: 5px 10px;
+    Font-size: 12px;
+}
+.btn-load {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+.message {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.success{
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb; 
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.validation-summary {
+    background-color: color: #8564043 padding: 19px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: #fff3cd;
+    1px solid #ffeebag
+}
+.movie-grid {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+.grid-view {
+    width: 100%;
+    border-collapse: collapse;
+}
+.grid-view th, .grid-view td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+.grid-view th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+.grid-view to:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.grid-view to:hover {
+    background-color: #ddd;
+}
+
+.empty-data-template {
+       padding: 20px;
+       text-align: center;
+    }
