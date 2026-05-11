@@ -60,7 +60,8 @@ namespace WebForms_MovieManager.WebForms
             get
             {
                 // Return the current error message text
-                return lblMessage.Visible && lblMessage.CssClass == "message-error" ? lblMessage.Text : string.Empty;
+                return lblMessage.Visible && lblMessage.CssClass == "message-error" ?
+                    lblMessage.Text : string.Empty;
             }
             set
             {

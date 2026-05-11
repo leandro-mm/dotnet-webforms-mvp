@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.37216.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms-MovieManager", "WebForms-MovieManager\WebForms-MovieManager.csproj", "{FDFC951A-947A-45DF-A9F6-F21637B834A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManager.Tests", "MovieManager.Tests\MovieManager.Tests.csproj", "{71405D9B-5008-4499-9261-3CD46FBB9D07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FDFC951A-947A-45DF-A9F6-F21637B834A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDFC951A-947A-45DF-A9F6-F21637B834A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFC951A-947A-45DF-A9F6-F21637B834A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71405D9B-5008-4499-9261-3CD46FBB9D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71405D9B-5008-4499-9261-3CD46FBB9D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71405D9B-5008-4499-9261-3CD46FBB9D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71405D9B-5008-4499-9261-3CD46FBB9D07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

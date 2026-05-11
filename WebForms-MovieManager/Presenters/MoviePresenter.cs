@@ -128,7 +128,7 @@ namespace WebForms_MovieManager.Presenters
 
             //clear form and show success
             _view.ClearForm();
-            _view.SuccessMessage = "Movie added successfully!";
+            _view.SuccessMessage = "Movie was update successfully!";
 
             //reset form mode
             _view.SetFormToEditMode(false);
@@ -136,12 +136,18 @@ namespace WebForms_MovieManager.Presenters
 
         private void OnAddMovie(object sender, EventArgs e)
         {
+            int year;
+            if(!int.TryParse(_view.ReleaseYear, out year))
+            {
+                _view.ShowValidationErrors("Release year is required");
+                return;
+            }
             //create movie from view data
             var movie = new Movie 
             { 
                 MovieTitle = _view.MovieTitle,
                 Director = _view.Director,
-                ReleaseYear = Convert.ToInt32(_view.ReleaseYear),
+                ReleaseYear = year,
                 Genre = _view.Genre,
                 Rating = Convert.ToInt32(_view.Rating)
             };

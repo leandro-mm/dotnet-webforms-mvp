@@ -60,14 +60,15 @@ namespace WebForms_MovieManager.Repositories
 
         public void UpdateMovie(Movie movie)
         {
-            var existingMovie = GetMovieById(movie.Id);
-            if (existingMovie != null)
+            var existingMovieReference = GetMovieById(movie.Id);
+
+            if (existingMovieReference != null)
             {
-                existingMovie.MovieTitle = movie.MovieTitle;
-                existingMovie.Director = movie.Director;
-                existingMovie.ReleaseYear = movie.ReleaseYear;
-                existingMovie.Genre = movie.Genre;
-                existingMovie.Rating = movie.Rating;                
+                existingMovieReference.MovieTitle = movie.MovieTitle;
+                existingMovieReference.Director = movie.Director;
+                existingMovieReference.ReleaseYear = movie.ReleaseYear;
+                existingMovieReference.Genre = movie.Genre;
+                existingMovieReference.Rating = movie.Rating;                
             }
         }
     }
