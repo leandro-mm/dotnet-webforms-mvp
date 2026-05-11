@@ -21,16 +21,13 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 |---------|------------|
 |![Presenter Image](WebForms-MVP/Assets/project_structure.png)|![Presenter Image](WebForms-MVP/Assets/test_structure.png)|
 
-# Other stuffs
- ```csharp 
-public interface MyInterface
-{
-    //to be implemented
-}
-```
-
-| Jut | A | Table Focus |
-|---------|------------|---------------|
-|col1|col2|col3|
+# Global Error Handling
+- For the aplication error handling we set up a global error as the following:
+- - Global.asax Application-Level Error Handling
+  - Custom Error Pages Configuration
+  - HTTP Module for Centralized Logging
+  - MVP Presenter Error Handling
+  - Unhandled Exception Logger
+  - Health Monitoring Setup
 
 
