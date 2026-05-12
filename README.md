@@ -36,7 +36,9 @@ void Application_Start(object sender, EventArgs e)
 /// </summary>
 void Application_BeginRequest(object sender, EventArgs e)
 {
-    Context.Response.AddHeader("X-Request-ID",Guid.NewGuid().ToString());
+     string requestId = Guid.NewGuid().ToString();
+     Context.Items["RequestId"] = requestId;  //Store requestId in HttpContext.Items
+     Context.Response.AddHeader("X-Request-ID", requestId);
 }
 /// <summary>
 /// 
