@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
+
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
+
 using System.Text;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
+
 
 namespace WebForms_MovieManager
 {
@@ -162,7 +160,7 @@ namespace WebForms_MovieManager
         {
             try
             {
-                var logPath = Server.MapPath("~/App_Data/ErrorLog.txt");
+                var logPath = Server.MapPath("~/App_Data/Logs/ErrorLog.txt");
                 var directory = Path.GetDirectoryName(logPath);
 
                 if (!Directory.Exists(directory))

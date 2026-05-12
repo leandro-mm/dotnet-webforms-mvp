@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Web;
+using WebForms_MovieManager.Services;
 
 namespace WebForms_MovieManager.ErrorPages
 {
@@ -33,7 +34,7 @@ namespace WebForms_MovieManager.ErrorPages
             if (lastError != null)
             {
                 // Show user-friendLy message
-                string userMessage = GetUserFriendlyMessage(lastError);
+                string userMessage = CustomMessage.FriendlyMessageGlobalError(lastError);
                 lblErrorMessage.Text = userMessage;
                 lblErrorMessage.Visible = true;
 
@@ -73,29 +74,7 @@ namespace WebForms_MovieManager.ErrorPages
             return Context.User != null && Context.User.IsInRole("Admin");
         }
 
-        private string GetUserFriendlyMessage(Exception ex)
-        {
-            if (ex is System.Data.SqlClient.SqlException)
-            {
-                return "A database error occurred. Please try again later.";
-            }
-            else if (ex is UnauthorizedAccessException) 
-            {
-                return "You don't have permission to access this resource.";
-            }
-            else if (ex is HttpException httpEx && httpEx.GetHttpCode() == 404)
-            {
-                return "The page you requested could not be found.";
-            }
-            else if (ex is System.ArgumentException)
-            {
-                return "Invalid data was provided. Please check your input.";
-            }
-            else
-            {
-                return "An unexpected error occurred. Our team has been notified.";
-            }
-        }
+        
 
         protected void btnReportError_Click(object sender, EventArgs e)
         {

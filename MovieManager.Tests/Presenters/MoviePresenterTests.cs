@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebForms_MovieManager.Models;
 using WebForms_MovieManager.Presenters;
 using WebForms_MovieManager.Repositories;
+using WebForms_MovieManager.Services;
 
 namespace MovieManager.Tests.Presenters
 {
@@ -16,13 +17,15 @@ namespace MovieManager.Tests.Presenters
     {
         private readonly MockView _mockView;
         private readonly Mock<IMovieRepository> _mockRepository;
+        private readonly Mock<IErrorLogger> _mockLogger;
         private readonly MoviePresenter _presenter;
 
         public MoviePresenterTests()
         {
             _mockView = new MockView();
             _mockRepository = new Mock<IMovieRepository>();
-            _presenter = new MoviePresenter(_mockView, _mockRepository.Object);
+            _mockLogger = new Mock<IErrorLogger>();
+            _presenter = new MoviePresenter(_mockView, _mockRepository.Object, _mockLogger.Object);
         }
 
         [Fact]
