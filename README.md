@@ -24,6 +24,76 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 # Global Error Handling
 - For the aplication error handling we set up a global error as the following:
 - - Global.asax Application-Level Error Handling
+ ```csharp 
+void Application_Start(object sender, EventArgs e)
+{        
+    Application["StartTime"] = DateTime.Now;
+    AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+}
+
+void Application_BeginRequest(object sender, EventArgs e)
+{
+    Context.Response.AddHeader("X-Request-ID",Guid.NewGuid().ToString());
+}
+
+void Application_EndRequest(object sender, EventArgs e)
+{
+    if(Context.Response.StatusCode >= 400)
+    {
+        LogHttpError(Context);
+    }
+}
+
+private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{
+    Exception ex = e.ExceptionObject as Exception;
+    if (ex != null) 
+    { 
+        LogException(ex,HttpContext.Current);
+    }
+}
+
+protected void Application_Error(object sender, EventArgs e)
+{
+    //Get the exception that caused the error
+    Exception ex = Server.GetLastError();
+
+    //Get the http context
+    HttpContext context = HttpContext.Current;
+
+    //Log the exception
+    LogException(ex, context);
+
+    //clear the errir to orevent default yellow screen
+    Server.ClearError();
+
+    //check if it is an AJAX request
+    if (IsAjaxRequest(Context))
+    {
+        HandleAjaxError(ex, context);
+    }
+    else
+    {
+        //redirect to custom error page
+        RedirectToErrorPage(ex, context);
+    }
+}
+
+private void RedirectToErrorPage(Exception ex, HttpContext context)
+{
+    context.Session["LastError"] = ex;
+    context.Session["LastErrorUrl"] = context.Request.Url.ToString();
+
+    context.Response.Redirect("~/ErrorPages/GlobalError.aspx");
+}
+
+//Other methods
+void Application_End(object sender, EventArgs e)
+private void LogHttpError(HttpContext context)
+private void LogException(Exception ex, HttpContext context)
+private void WriteToLogFile(string message)
+private void WriteToEventLog(string message)
+```
   - Custom Error Pages Configuration
   - HTTP Module for Centralized Logging
   - MVP Presenter Error Handling
