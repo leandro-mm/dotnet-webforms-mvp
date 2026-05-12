@@ -1,12 +1,6 @@
-﻿using Microsoft.Ajax.Utilities;
-using System;
-using System.Collections.Generic;
-using System.EnterpriseServices;
-using System.Linq;
+﻿using System;
 using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebForms_MovieManager.ErrorPages
 {
@@ -14,8 +8,16 @@ namespace WebForms_MovieManager.ErrorPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string errorId = Guid.NewGuid().ToString().Substring(0, 8);
+            // Retrieve from HttpContext.Items
+            string errorId = Context.Items["RequestId"]?.ToString()
+                             ?? Guid.NewGuid().ToString().Substring(0, 8);
+
             lblErrorld.Text = errorId;
+
+            if (Context.Response.Headers["X-Request-ID"] == null)
+            {
+                Context.Response.AddHeader("X-Request-ID", errorId);
+            }
 
             if (!IsPostBack)
             {

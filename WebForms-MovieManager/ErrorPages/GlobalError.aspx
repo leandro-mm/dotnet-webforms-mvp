@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
         <div class="error-container">
             <div class="error-code"> 
-                XYZ
+                <span style="color: orange;">&#9888;</span>
             </div>
             <h1>Something Went Wrong</h1>
             <div class="error-message">

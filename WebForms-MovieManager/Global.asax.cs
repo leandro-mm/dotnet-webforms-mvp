@@ -26,14 +26,13 @@ namespace WebForms_MovieManager
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
-        void Application_End(object sender, EventArgs e)
-        {
-
-        }
+        
 
         void Application_BeginRequest(object sender, EventArgs e)
         {
-            Context.Response.AddHeader("X-Request-ID",Guid.NewGuid().ToString());
+            string requestId = Guid.NewGuid().ToString();
+            Context.Items["RequestId"] = requestId;  
+            Context.Response.AddHeader("X-Request-ID", requestId);
         }
         void Application_EndRequest(object sender, EventArgs e)
         {
@@ -41,20 +40,6 @@ namespace WebForms_MovieManager
             {
                 LogHttpError(Context);
             }
-        }
-
-        private void LogHttpError(HttpContext context)
-        {
-            try
-            {
-                var logEntry = new StringBuilder();
-                logEntry.AppendLine($"HTTP Error: {context.Response.StatusCode}");
-                logEntry.AppendLine($"URL: {context.Request.Url}");
-                logEntry.AppendLine($"Timestamp: {DateTime.Now}");
-
-                WriteToLogFile(logEntry.ToString());    
-            }
-            catch {}
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -91,19 +76,36 @@ namespace WebForms_MovieManager
                 RedirectToErrorPage(ex, context);
             }
         }
-
-        private bool IsAjaxRequest(HttpContext context)
-        {
-            return context.Request.Headers["X-Requested-With"] == "XMLHttprequest" ||
-                context.Request.Params["IsAjax"] == "true";
-        }
-
         private void RedirectToErrorPage(Exception ex, HttpContext context)
         {
             context.Session["LastError"] = ex;
             context.Session["LastErrorUrl"] = context.Request.Url.ToString();
 
             context.Response.Redirect("~/ErrorPages/GlobalError.aspx");
+        }
+
+        void Application_End(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LogHttpError(HttpContext context)
+        {
+            try
+            {
+                var logEntry = new StringBuilder();
+                logEntry.AppendLine($"HTTP Error: {context.Response.StatusCode}");
+                logEntry.AppendLine($"URL: {context.Request.Url}");
+                logEntry.AppendLine($"Timestamp: {DateTime.Now}");
+
+                WriteToLogFile(logEntry.ToString());
+            }
+            catch { }
+        }
+        private bool IsAjaxRequest(HttpContext context)
+        {
+            return context.Request.Headers["X-Requested-With"] == "XMLHttprequest" ||
+                context.Request.Params["IsAjax"] == "true";
         }
 
         private void HandleAjaxError(Exception ex, HttpContext context)
@@ -192,7 +194,10 @@ namespace WebForms_MovieManager
             }
             catch{}
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         private void WriteToEventLog(string message)
         {
             try
