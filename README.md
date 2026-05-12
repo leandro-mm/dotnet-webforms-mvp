@@ -24,18 +24,23 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 # Global Error Handling
 - For the aplication error handling we set up a global error as the following:
 - - Global.asax Application-Level Error Handling
+
  ```csharp 
 void Application_Start(object sender, EventArgs e)
 {        
     Application["StartTime"] = DateTime.Now;
     AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 }
-
+/// <summary>
+/// 
+/// </summary>
 void Application_BeginRequest(object sender, EventArgs e)
 {
     Context.Response.AddHeader("X-Request-ID",Guid.NewGuid().ToString());
 }
-
+/// <summary>
+/// 
+/// </summary>
 void Application_EndRequest(object sender, EventArgs e)
 {
     if(Context.Response.StatusCode >= 400)
@@ -43,7 +48,9 @@ void Application_EndRequest(object sender, EventArgs e)
         LogHttpError(Context);
     }
 }
-
+/// <summary>
+/// 
+/// </summary>
 private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 {
     Exception ex = e.ExceptionObject as Exception;
@@ -52,7 +59,9 @@ private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionE
         LogException(ex,HttpContext.Current);
     }
 }
-
+/// <summary>
+/// 
+/// </summary>
 protected void Application_Error(object sender, EventArgs e)
 {
     //Get the exception that caused the error
@@ -78,7 +87,9 @@ protected void Application_Error(object sender, EventArgs e)
         RedirectToErrorPage(ex, context);
     }
 }
-
+/// <summary>
+/// 
+/// </summary>
 private void RedirectToErrorPage(Exception ex, HttpContext context)
 {
     context.Session["LastError"] = ex;
