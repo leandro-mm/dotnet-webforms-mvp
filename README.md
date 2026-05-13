@@ -24,7 +24,10 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 |![Presenter Image](WebForms-MVP/Assets/project_structure.png)|![Presenter Image](WebForms-MVP/Assets/test_structure.png)|
 
 # Global Error Handling
-## For the aplication error handling we set up a global error as the following:
+- The purpose is to have request errors handled as following:
+![Presenter Image](WebForms-MVP/Assets/http_request_error_flow.png)
+  
+## Necessary settings
 - **Global.asax** Application-Level Error Handling
 
  ```csharp 
@@ -111,10 +114,15 @@ private void WriteToEventLog(string message)
 ```
 - **Web.config**
 - - You should care about these element names:
-  - - customErrors, providers, trace, compilation, system.webServer, appSettings   
-- **HTTP Module** for Centralized Logging
+   ```xml
+    <customErrors>, <providers>, <trace>, <compilation>, <system.webServer>, <appSettings>   
+   ````
+
 - **MVP Presenter** Error Handling
-- **Unhandled Exception** Logger
+- - Create a ErrorLog class to log errors, warnings and informations about the request. Follow this core processing:
+![Presenter Image](WebForms-MVP/Assets/error_loging_info.png)
+
+- **HTTP Module** for Centralized Logging
 - **Health Monitoring** Setup
 
 
