@@ -14,13 +14,21 @@ namespace WebForms_MovieManager.Services
     {
         private readonly string _logPath;
         private readonly object _lockObject = new object();
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ErrorLogger()
+        public ErrorLogger() : this(new HttpContextAccessor())
         {
-            string basePath = HttpContext
+        }
+
+        public ErrorLogger(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+
+            string basePath = _httpContextAccessor
                                 .Current?
                                 .Server
-                                .MapPath("~/App_Data/Logs") ?? AppDomain.CurrentDomain.BaseDirectory;
+                                .MapPath("~/App_Data/Logs") ?? 
+                                AppDomain.CurrentDomain.BaseDirectory;
 
             _logPath = Path.Combine(basePath, "ErrorLog");
 
@@ -71,10 +79,10 @@ namespace WebForms_MovieManager.Services
             {
                 sb.AppendLine($"Aditional Info: {additionalInfo}");
             }
+            var context = _httpContextAccessor.Current;
 
-            if (HttpContext.Current != null)
-            {
-                var context = HttpContext.Current;
+            if (context != null)
+            {                
                 sb.AppendLine($"URL: {context.Request.Url}");
                 sb.AppendLine($"HTTP Method: {context.Request.HttpMethod}");
                 sb.AppendLine($"User IP: {context.Request.UserHostAddress}");

@@ -20,7 +20,7 @@ namespace WebForms_MovieManager
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             
-            Application["StartTime"] = DateTime.Now;
+            Application["RequestStartTime"] = DateTime.Now;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 

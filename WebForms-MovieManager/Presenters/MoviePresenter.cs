@@ -27,12 +27,12 @@ namespace WebForms_MovieManager.Presenters
 
         private void EventsSubscribe()
         {
-            _view.AddMovieEvent += OnAddMovie;
-            _view.UpdateMovieEvent += OnUpdateMovie;
-            _view.DeleteMovieEvent += OnDeleteMovie;
-            _view.EditMovieEvent += OnLoadMovieInfo;
-            _view.LoadMoviesEvent += OnLoadMovies;
-            _view.ClearFormEvent += OnClearForm;
+            _view.AddMovieEvent     += SafeEventHandler(OnAddMovie);
+            _view.UpdateMovieEvent  += SafeEventHandler(OnUpdateMovie);
+            _view.DeleteMovieEvent  += SafeEventHandler(OnDeleteMovie);
+            _view.EditMovieEvent    += SafeEventHandler(OnLoadMovieInfo);
+            _view.LoadMoviesEvent   += SafeEventHandler(OnLoadMovies);
+            _view.ClearFormEvent    += SafeEventHandler(OnClearForm);
         }
 
         #region Event Handlers
@@ -280,13 +280,13 @@ namespace WebForms_MovieManager.Presenters
         #endregion
         
         #region Log
-        private EventHandler SafeEventHandler(Action handler)
+        private EventHandler SafeEventHandler(EventHandler handler)
         {
             return (sender, e) =>
             {
                 try
                 {
-                    handler();
+                    handler(sender, e);
                 }
                 catch (Exception ex)
                 {
