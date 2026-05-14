@@ -17,15 +17,12 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 
  ## The Project Structure
  - We are going to be building a Movie Manager application using the MVP pattern.
- - Whithin this project we are making use of validators and a gridView.
-   
- |  | |
-|---------|------------|
-|![Presenter Image](WebForms-MVP/Assets/project_structure.png)|![Presenter Image](WebForms-MVP/Assets/test_structure.png)|
+ - Whithin this project we are making use of validators and a gridView.   
+|![Presenter Image](WebForms-MovieManager/Assets/project_structure.png)|
 
 # Global Error Handling
 - The purpose is to have request errors handled as following:
-![Presenter Image](WebForms-MVP/Assets/http_request_error_flow.png)
+![Presenter Image](WebForms-MovieManager/Assets/request_error_handling_aditional.svg)
   
 ## Necessary settings
 ### **Global.asax** Application-Level Error Handling
@@ -101,8 +98,30 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
    ````
 
 ### **MVP Presenter** Error Handling
-- Create a ErrorLog class to log errors, warnings and informations about the request. Follow this core processing:
-![Presenter Image](WebForms-MVP/Assets/error_loging_info.png)
+- Create a ErrorLog class to log errors, warnings and informations about the request. Follow this interface:
+```csharp
+    public interface IErrorLogger
+    {
+        void LogError(Exception ex, string aditionalInfo = null);
+        void LogError(string message, ErrorSeverity errorSeverity = ErrorSeverity.Error);
+        void LogWarning(string message);
+        void LogInformation(string message);
+        
+    }
+    
+    public enum ErrorSeverity
+    {
+        Information,
+        Warning,
+        Error,
+        Critical
+    }
+    //use the concrete class to log errors, information and warnings
+    loggerInstance.LogInformation("Logging Information...");
+    loggerInstance.LogWarning("Logging Warning...");
+    loggerInstance.LogError("Logging Error...");
+
+````
 
 ### **HTTP Module** for Centralized Logging
 - This module subscribe itself to the Global.asax.cs's Context.Error event
