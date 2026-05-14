@@ -28,7 +28,7 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 ![Presenter Image](WebForms-MVP/Assets/http_request_error_flow.png)
   
 ## Necessary settings
-- **Global.asax** Application-Level Error Handling
+### **Global.asax** Application-Level Error Handling
 
  ```csharp 
     void Application_BeginRequest(object sender, EventArgs e)
@@ -94,18 +94,18 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
     private void WriteToLogFile(string message)
     private void WriteToEventLog(string message)
 ```
-- **Web.config**
-- - You should care about these element names:
+### **Web.config**
+- You should care about these element names:
    ```xml
     <customErrors>, <providers>, <trace>, <compilation>, <system.webServer>, <appSettings>   
    ````
 
-- **MVP Presenter** Error Handling
-- - Create a ErrorLog class to log errors, warnings and informations about the request. Follow this core processing:
+### **MVP Presenter** Error Handling
+- Create a ErrorLog class to log errors, warnings and informations about the request. Follow this core processing:
 ![Presenter Image](WebForms-MVP/Assets/error_loging_info.png)
 
-- **HTTP Module** for Centralized Logging
-- - This module subscribe itself to the Global.asax.cs's Context.Error event
+### **HTTP Module** for Centralized Logging
+- This module subscribe itself to the Global.asax.cs's Context.Error event
  ```csharp
 public class GlobalErrorHandlerModule : IHttpModule
 {
@@ -122,9 +122,13 @@ public class GlobalErrorHandlerModule : IHttpModule
     private void OnError(object sender, EventArgs e)...
 }
 ````
-- **Health Monitoring** Setup
-- - So far we've built a comprehensive manual logging system using custom modules and Global.asax event handlers.
-  - To enable Health Monitoring, we need to add a <healthMonitoring> section to the Web.config file
-  - However the manual logging we've built logs more custom information and give us more complete control, this way we wil not implement Health Monitoring via Web.config file.
+### **Health Monitoring** Setup
+- So far we've built a comprehensive manual logging system using custom modules and Global.asax event handlers.
+- To enable Health Monitoring, we need to add a <healthMonitoring> section to the Web.config file
+- However the manual logging we've built logs more custom information and give us more complete control, this way we wil not implement Health Monitoring via Web.config file.
 
+## Custom Reusable Components
+- We're building custom reusable components that integrate seamlessly with the MVP architecture while maintaining separation of concerns and testability.
+### Components Structure
+![Presenter Image](WebForms-MovieManager/Assets/Components_arch.png)
 
