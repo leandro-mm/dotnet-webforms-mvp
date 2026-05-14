@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebForms_MovieManager.Components.PageGridView
 {
-    public class PageGridViewPresenter
+    public class PagedGridViewPresenter
     {
     }
 }

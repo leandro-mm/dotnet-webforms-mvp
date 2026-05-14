@@ -99,6 +99,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\Base\ComponentView.ascx" />
+    <Content Include="Components\MovieSearch\MovieSearchView.ascx" />
+    <Content Include="Components\PagedGridView\PagedGridViewView.ascx" />
+    <Content Include="Components\RatingControl\RatingControl.ascx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -186,6 +190,44 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Components\Base\ComponentView.ascx.cs">
+      <DependentUpon>ComponentView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\Base\ComponentView.ascx.designer.cs">
+      <DependentUpon>ComponentView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Base\IComponentView.cs" />
+    <Compile Include="Components\MovieSearch\IMovieSearchView.cs" />
+    <Compile Include="Components\MovieSearch\MovieSearchModel.cs" />
+    <Compile Include="Components\MovieSearch\MovieSearchPresenter.cs" />
+    <Compile Include="Components\MovieSearch\MovieSearchView.ascx.cs">
+      <DependentUpon>MovieSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\MovieSearch\MovieSearchView.ascx.designer.cs">
+      <DependentUpon>MovieSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\PagedGridView\IPagedGridViewView.cs" />
+    <Compile Include="Components\PagedGridView\PagedData.cs" />
+    <Compile Include="Components\PagedGridView\PagedGridViewPresenter.cs" />
+    <Compile Include="Components\PagedGridView\PagedGridViewView.ascx.cs">
+      <DependentUpon>PagedGridViewView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\PagedGridView\PagedGridViewView.ascx.designer.cs">
+      <DependentUpon>PagedGridViewView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\RatingControl\IRatingControlView.cs" />
+    <Compile Include="Components\RatingControl\RatingControl.ascx.cs">
+      <DependentUpon>RatingControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\RatingControl\RatingControl.ascx.designer.cs">
+      <DependentUpon>RatingControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\RatingControl\RatingControlPresenter.cs" />
+    <Compile Include="Components\RatingControl\RatingData.cs" />
     <Compile Include="ErrorPages\GlobalError.aspx.cs">
       <DependentUpon>GlobalError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -240,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

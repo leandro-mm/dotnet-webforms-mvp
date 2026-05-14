@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace WebForms_MovieManager.Components.PageGridView
 {
-    internal interface IPageGridViewView
+    public class PagedData
     {
     }
 }
