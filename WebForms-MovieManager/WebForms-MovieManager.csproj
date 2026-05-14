@@ -120,6 +120,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\gobalerror.css" />
+    <Content Include="Content\MovieSearch.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ErrorPages\GlobalError.aspx" />
@@ -190,6 +191,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Components\Base\BaseComponentPresenter.cs" />
     <Compile Include="Components\Base\ComponentView.ascx.cs">
       <DependentUpon>ComponentView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,6 +199,7 @@
     <Compile Include="Components\Base\ComponentView.ascx.designer.cs">
       <DependentUpon>ComponentView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Components\Base\IComponentPresenter.cs" />
     <Compile Include="Components\Base\IComponentView.cs" />
     <Compile Include="Components\MovieSearch\IMovieSearchView.cs" />
     <Compile Include="Components\MovieSearch\MovieSearchModel.cs" />

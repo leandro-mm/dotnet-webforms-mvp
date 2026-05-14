@@ -1,0 +1,129 @@
+﻿.movie-search-component {
+    background: white;
+    border-radius: 8px, padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center, margin-bottom: 15px;
+}
+
+    .search-header h3 {
+        margin: 0;
+        color: #333;
+    }
+
+.search-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.bin-search {
+    background: color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px, cursor: pointer;
+    #007bFF.;
+}
+
+.bin-clear {
+    background: color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer, #6c757d;
+}
+
+.bin-toggle {
+    background: color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer, #28a745;
+}
+
+.search-advanced {
+    background: #¥8f9fa;
+    padding: lspx;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+    .filter-group label {
+        width: 100px;
+        font-weight: bold;
+    }
+
+
+    .filter-group select {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-Fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.movie-card {
+    border: 1px solid #dddg border-radius: 4px, padding: 15px;
+    transition: transform 0.2s;
+}
+
+.movie-cardzhover {
+    transform: translatey(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,9.1);
+}
+
+.movie-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #o@7bff;
+}
+
+.movie-director, .movie-year, .movie-genre, .movie-rating {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.search-term-highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+.results-count {
+    color: #28a745;
+    font-size: 12px;
+}
+.loading-indicator {
+    color: #007bff;
+    font-style: italic;
+}
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #9993
+}

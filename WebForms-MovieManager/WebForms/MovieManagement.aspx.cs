@@ -188,7 +188,12 @@ namespace WebForms_MovieManager.WebForms
         {
             LoadMoviesEvent?.Invoke(this, EventArgs.Empty);
         }
-        
+
         #endregion
+
+        protected void ddlGenre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/199bin9/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Movie Management System - MVP Pattern</title>
     <link href="../Content/Site2.css" rel="stylesheet" />

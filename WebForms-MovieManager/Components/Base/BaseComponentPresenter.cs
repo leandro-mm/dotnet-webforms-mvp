@@ -1,9 +1,6 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
+
 using WebForms_MovieManager.Services;
 
 namespace WebForms_MovieManager.Components.Base
@@ -14,7 +11,7 @@ namespace WebForms_MovieManager.Components.Base
         where TModel : class
     {
         public TView View { get; private set; }
-        protected readonly IErrorLogger _logger;
+        public IErrorLogger _logger;
 
         protected BaseComponentPresenter(TView view, IErrorLogger logger=null)
         {
@@ -23,22 +20,8 @@ namespace WebForms_MovieManager.Components.Base
             SubscribeToviewEvents();
         }
 
-        private void SubscribeToviewEvents()
-        {
-            View.ComponentLoaded += OnComponentLoaded;
-            View.ComponentDatachanged += OnComponentDatachanged;
-        }
 
-        private void OnComponentDatachanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnComponentLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        #region IComponentPresenter Methods
         public void Initialize()
         {
             try
@@ -54,30 +37,64 @@ namespace WebForms_MovieManager.Components.Base
             }
         }
 
-        private void OnInitialize()
-        {
-            throw new NotImplementedException();
-        }
-
         public void LoadData()
         {
             try
             {
                 View.SetLoadingState(true);
-                war data = OnLoadData();
-                View.Datasource = data,
-View.BindData();
+                var data = OnLoadData();
+                View.DataSource = data;
+                View.BindData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                _logger.LogError(ex, $"Error loading data for component {View.ComponentId}");
+                View.ShowError("Failed to load data");
+            }
+            finally
+            {
+                View.SetLoadingState(false);
             }
         }
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+            LoadData();
         }
+        #endregion
+
+        #region BaseComponentPresenter Methods
+       
+        private void SubscribeToviewEvents()
+        {
+            if (View != null)
+            {
+                View.ComponentLoaded += OnComponentLoaded;
+                View.ComponentDatachanged += OnComponentDatachanged;
+            }
+        }
+
+        private void OnComponentDatachanged(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        protected virtual void OnComponentLoaded(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+        
+
+        protected void RaiseDataChanged()
+        {
+            Refresh();
+        }
+
+        protected virtual void OnInitialize() { }
+
+        protected abstract TModel OnLoadData();
+
+        #endregion
     }
 }
