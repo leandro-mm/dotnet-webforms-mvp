@@ -16,12 +16,24 @@ namespace WebForms_MovieManager
     {
         void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            try
+            {
+                // Code that runs on application startup
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+                Application["RequestStartTime"] = DateTime.Now;
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            }
+            catch (Exception ex)
+            {
+
+                // Log startup errors to a file (since nothing else is available yet)
+                string startupErrorPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "StartupError.log");
+                Directory.CreateDirectory(Path.GetDirectoryName(startupErrorPath));
+                File.WriteAllText(startupErrorPath, $"{DateTime.Now}: {ex.ToString()}");
+            }
             
-            Application["RequestStartTime"] = DateTime.Now;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
         
@@ -76,10 +88,71 @@ namespace WebForms_MovieManager
         }
         private void RedirectToErrorPage(Exception ex, HttpContext context)
         {
-            context.Session["LastError"] = ex;
-            context.Session["LastErrorUrl"] = context.Request.Url.ToString();
+            try
+            {
+                // Ensure response is valid
+                if (context.Response == null)
+                    return;
 
-            context.Response.Redirect("~/ErrorPages/GlobalError.aspx");
+                // Try to store error details
+                try
+                {
+                    if (context.Session != null)
+                    {
+                        if (ex != null)
+                            context.Session["LastError"] = ex;
+                        context.Session["LastErrorUrl"] = context.Request?.Url?.ToString() ?? "Unknown URL";
+                    }
+                }
+                catch { /* Ignore session errors */ }
+
+                // Check if we can redirect
+                if (context.Response.IsClientConnected && !context.Response.IsRequestBeingRedirected)
+                {
+                    string redirectUrl = context.Session != null
+                        ? "~/ErrorPages/GlobalError.aspx"
+                        : "~/ErrorPages/StaticError.html";
+
+                    context.Response.Redirect(redirectUrl, false);
+                    context.Response.End();
+                }
+                else
+                {
+                    // Write direct response
+                    context.Response.Clear();
+                    context.Response.ContentType = "text/html";
+                    context.Response.Write(GetSimpleErrorHtml(ex?.Message ?? "Application Error"));
+                    context.Response.StatusCode = 500;
+                    context.Response.End();
+                }
+
+            }
+            catch (Exception redirectEx)
+            {
+
+                // Ultimate fallback - write simple error
+                try
+                {
+                    context.Response.Clear();
+                    context.Response.Write(GetSimpleErrorHtml("Application Error"));
+                    context.Response.StatusCode = 500;
+                    context.Response.End();
+                }
+                catch { /* Give up */ }
+            }
+        }
+
+        private string GetSimpleErrorHtml(string errorMessage)
+        {
+            return $@"<!DOCTYPE html>
+                <html>
+                <head><title>Application Error</title></head>
+                <body>
+                    <h1>Application Error</h1>
+                    <p>Sorry, an error occurred while processing your request. {errorMessage}</p>
+                    <p><a href=""/"">Return to Home</a></p>
+                </body>
+                </html>";
         }
 
         void Application_End(object sender, EventArgs e)
@@ -127,16 +200,27 @@ namespace WebForms_MovieManager
         {
             var logEntry = new StringBuilder();
             logEntry.AppendLine($"Timestamp: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-            logEntry.AppendLine($"Error type: {ex.GetType().Name}");
-            logEntry.AppendLine($"Message: {ex.Message}");
-            logEntry.AppendLine($"Stack trace: {ex.StackTrace}");
 
-            if (ex.InnerException != null)
+            if (ex != null)
             {
-                logEntry.AppendLine($"Inner exception: {ex.InnerException.Message}");
+                logEntry.AppendLine($"Error type: {ex.GetType().Name}");
+                logEntry.AppendLine($"Message: {ex.Message}");
+                logEntry.AppendLine($"Stack trace: {ex.StackTrace}");
+
+                if (ex.InnerException != null)
+                {
+                    logEntry.AppendLine($"Inner exception: {ex.InnerException.Message}");
+                }
+            }
+            else
+            {
+                logEntry.AppendLine("Exception is null");
             }
 
-            if(context != null && context.Request != null)
+
+
+
+            if (context != null && context.Request != null)
             {
                 logEntry.AppendLine($"Url: {context.Request.Url}");
                 logEntry.AppendLine($"User IP: {context.Request.UserHostAddress}");
