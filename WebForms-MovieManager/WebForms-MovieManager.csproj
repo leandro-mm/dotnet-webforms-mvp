@@ -121,9 +121,10 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\gobalerror.css" />
     <Content Include="Content\MovieSearch.css" />
-    <Content Include="Content\Site2.css" />
+    <Content Include="Content\FormMovieManagement.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ErrorPages\GlobalError.aspx" />
+    <Content Include="ErrorPages\StaticError.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -154,7 +155,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="WebForms\MovieManagement.aspx" />
+    <Content Include="WebForms\FormMovieManagement.aspx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -275,12 +276,12 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="Views\IMovieView.cs" />
-    <Compile Include="WebForms\MovieManagement.aspx.cs">
-      <DependentUpon>MovieManagement.aspx</DependentUpon>
+    <Compile Include="WebForms\FormMovieManagement.aspx.cs">
+      <DependentUpon>FormMovieManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForms\MovieManagement.aspx.designer.cs">
-      <DependentUpon>MovieManagement.aspx</DependentUpon>
+    <Compile Include="WebForms\FormMovieManagement.aspx.designer.cs">
+      <DependentUpon>FormMovieManagement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

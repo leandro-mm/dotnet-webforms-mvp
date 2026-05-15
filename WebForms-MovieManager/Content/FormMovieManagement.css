@@ -121,3 +121,33 @@ button, .bin {
        padding: 20px;
        text-align: center;
     }
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.components-section {
+    display: grid;
+    grid-template-columns: lfrg gap: 20px;
+    margin-bottom: 30px;
+}
+
+.movie-detail-section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.selected-movie-info {
+    padding: 15px;
+    background: #e7f3ff;
+    border-radius: 4px, margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+    .components-section {
+        grid-template-columns: lf 1¥r;
+    }
+}

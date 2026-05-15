@@ -11,6 +11,7 @@ namespace WebForms_MovieManager.Components.Base
     {
         public TView View { get; private set; }
         public IErrorLogger _logger;
+        private bool _isLoadingData = false;
 
         protected BaseComponentPresenter(TView view, IErrorLogger logger=null)
         {
@@ -38,12 +39,14 @@ namespace WebForms_MovieManager.Components.Base
 
         public void LoadData()
         {
+            if (_isLoadingData) return;
+
             try
             {
                 View.SetLoadingState(true);
                 TModel data = OnLoadData();
                 View.DataSource = data;
-                View.BindData();
+                View.BindData();// This will fire ComponentDatachanged 
             }
             catch (Exception ex)
             {
@@ -53,6 +56,7 @@ namespace WebForms_MovieManager.Components.Base
             }
             finally
             {
+                _isLoadingData = false;
                 View.SetLoadingState(false);
             }
         }
@@ -76,7 +80,8 @@ namespace WebForms_MovieManager.Components.Base
 
         private void OnComponentDatachanged(object sender, EventArgs e)
         {
-            Refresh();
+            if (!_isLoadingData)
+                Refresh();
         }
 
         protected virtual void OnComponentLoaded(object sender, EventArgs e)

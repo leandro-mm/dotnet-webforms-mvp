@@ -38,27 +38,23 @@ namespace WebForms_MovieManager.Components.MovieSearch
                 _presenter.Initialize();
             }
         }
+        #endregion
 
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             // Trigger search logic
+            System.Diagnostics.Debug.WriteLine("MovieSearchView SearchTriggered btnSearch_Click");
             SearchTriggered?.Invoke(this, EventArgs.Empty);
-
-            // After data is updated, notify that component data changed
-            ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            // Clear search logic
+            System.Diagnostics.Debug.WriteLine("MovieSearchView SearchCleared btnClear_Click");
             SearchCleared?.Invoke(this, EventArgs.Empty);
-
-            // After data is cleared, notify that component data changed
-            ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
-        protected void btnTogg1eAdvanced_Click(object sender, EventArgs e)
+        protected void btnToggleAdvanced_Click(object sender, EventArgs e)
         {
             bool isVisible = divAdvancedSearch.Style["display"] == "block";
             SetAdvancedSearchVisible(!isVisible);
@@ -67,20 +63,20 @@ namespace WebForms_MovieManager.Components.MovieSearch
 
         protected void ddlGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlGenre_SelectedIndexChanged");
             FilteredChange?.Invoke(this, EventArgs.Empty);
-            ComponentDatachanged?.Invoke(this, EventArgs.Empty);        
         }
 
         protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlYear_SelectedIndexChanged");
             FilteredChange?.Invoke(this, EventArgs.Empty);
-            ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected void ddlRating_SelectedIndexChanged(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlRating_SelectedIndexChanged");
             FilteredChange?.Invoke(this, EventArgs.Empty);
-            ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected string HighlightSearchTerm(string text)
@@ -98,9 +94,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
         #endregion
 
 
-
-        #endregion
-
         #region IMovieSearchView stuffs
 
         public string SearchTerm 
@@ -109,7 +102,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
             set 
             { 
                 txtSearchTerm.Text = value;
-                ComponentDatachanged?.Invoke(this, EventArgs.Empty);
             }
         }
         public string SelectedGenre 
@@ -120,10 +112,7 @@ namespace WebForms_MovieManager.Components.MovieSearch
                 if (ddlGenre.Items.FindByValue(value) != null)
                 {
                     ddlGenre.SelectedValue = value;
-                    ComponentDatachanged?.Invoke(this, EventArgs.Empty);
-
-                }
-                    
+                }   
             }
         }
         public int? SelectedYear 
@@ -134,7 +123,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
             set
             {
                 ddlYear.SelectedValue = value?.ToString() ?? "";
-                ComponentDatachanged?.Invoke(this, EventArgs.Empty);
             }
         }
         public double? MinimumRating 
@@ -145,7 +133,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
             set 
             {
                 ddlRating.SelectedValue = value?.ToString() ?? "";
-                ComponentDatachanged?.Invoke(this, EventArgs.Empty);
             }
         }
         public IEnumerable<string> Genres 
@@ -160,7 +147,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
                 {
                     ddlGenre.Items.Add(new ListItem(genre, genre));
                 }
-                ComponentDatachanged?.Invoke(this, EventArgs.Empty);
             }
         }
         public IEnumerable<int> AvailableYears 
@@ -171,7 +157,7 @@ namespace WebForms_MovieManager.Components.MovieSearch
             {
                 var currentValue = ddlYear.SelectedValue;
                 ddlYear.Items.Clear();
-                ddlYear.Items.Add(new ListItem("Al1 Years", ""));
+                ddlYear.Items.Add(new ListItem("All Years", ""));
 
                 foreach (var year in value)
                 {
@@ -183,7 +169,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
                     ddlYear.Items.FindByValue(currentValue) != null)
                 {
                     ddlYear.SelectedValue = currentValue;
-                    ComponentDatachanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -193,7 +178,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
             set 
             {
                 rptResults.DataSource = value;
-                ComponentDatachanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -209,12 +193,16 @@ namespace WebForms_MovieManager.Components.MovieSearch
         public void BindData()
         {
             rptResults.DataBind();
+            System.Diagnostics.Debug.WriteLine("MovieSearchView ComponentDatachanged BindData");
+            //ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void ClearData()
         {
+            System.Diagnostics.Debug.WriteLine("MovieSearchView ComponentDatachanged ClearData");
             rptResults.DataSource = null;
             rptResults.DataBind();
+            ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void HighlightSearch(string term)
@@ -236,13 +224,13 @@ namespace WebForms_MovieManager.Components.MovieSearch
 
         public void ShowError(string message)
         {
-            var script = $"alert('Error: {message.Replace("", "\\")}');";
+            var script = $"alert('Error: {message.Replace("\\", "\\\\").Replace("'", "\\'")}');";
             ScriptManager.RegisterStartupScript(this, GetType(), "Error", script, true);
         }
 
         public void ShowMessage(string message)
         {
-            var script = $"alert('{message.Replace("'", "\\'")}),";
+            var script = $"alert('{message.Replace("'", "\\'")});";
             ScriptManager.RegisterStartupScript(this, GetType(), "Message", script, true);
         }
 

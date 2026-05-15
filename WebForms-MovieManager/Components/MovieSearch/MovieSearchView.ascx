@@ -1,5 +1,7 @@
 ﻿
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MovieSearchView.ascx.cs" Inherits="WebForms_MovieManager.Components.MovieSearch.MovieSearchView" %>
+<%@ Control Language="C#" AutoEventWireup="true" 
+    CodeBehind="MovieSearchView.ascx.cs" 
+    Inherits="WebForms_MovieManager.Components.MovieSearch.MovieSearchView" %>
 
 <link href="../../Content/MovieSearch.css" rel="stylesheet" />
 
@@ -11,7 +13,7 @@
             runat="server" 
             Text="Advanced Search"
             Cssclass="btn-toggle" 
-            OnClick="btnTogg1eAdvanced_Click" />
+            OnClick="btnToggleAdvanced_Click" />
     </div>
 
     <div class="search-basic">
@@ -65,39 +67,33 @@
     </div>
 
     <div class="search-results">
-        <asp:Repeater ID="rptResults" runat="server">
+    <asp:Repeater ID="rptResults" runat="server">
+        <HeaderTemplate>
+            <div class="movie-grid">
+        </HeaderTemplate>
 
-            <HeaderTemplate>
-                <div class="movie-grid"></div>
-            </HeaderTemplate>
-
-            <ItemTemplate>
-                <div class="movie-card" data-movie-id='<%#Eval("Id") %>'>
-                    
-                    <div class="movie-title">
-                        <%# HighlightSearchTerm(Eval("MovieTitle").ToString())%>
-                        </div>
-                    <div class="movie-director">Director: <%# Eval("Director") %></div>
-
-                    <div class="movie-year">year: <%# Eval("ReleaseYear") %></div>
-                    <div class="movie-genre">Genre: <%# Eval("Genre") %></div>
-                    <div class="movie-rating">Rating: <%# Eval("Rating") %> *</div>
-
+        <ItemTemplate>
+            <div class="movie-card" data-movie-id='<%# Eval("Id") %>'>
+                <div class="movie-title">
+                    <%# HighlightSearchTerm(Eval("MovieTitle").ToString()) %>
                 </div>
+                <div class="movie-director">Director: <%# Eval("Director") %></div>
+                <div class="movie-year">Year: <%# Eval("ReleaseYear") %></div>
+                <div class="movie-genre">Genre: <%# Eval("Genre") %></div>
+                <div class="movie-rating">Rating: <%# Eval("Rating") %> *</div>
+            </div>
+        </ItemTemplate>
 
-            </ItemTemplate>
+        <FooterTemplate>
+            </div>  <!-- This closes the movie-grid div -->
+        </FooterTemplate>
+    </asp:Repeater>
 
-            <FooterTemplate>
-                <div></div>
-            </FooterTemplate>                
-
-        </asp:Repeater>
-
-        <asp:Label ID="lblNoResults" 
-            runat="server" 
-            Text="no movies found matching your criteria"
-            CssClass="no-results" Visible="false">
-
-        </asp:Label>
-    </div>
+    <asp:Label ID="lblNoResults" 
+        runat="server" 
+        Text="No movies found matching your criteria"
+        CssClass="no-results" 
+        Visible="false">
+    </asp:Label>  <!-- Make sure this is properly closed -->
+</div>
 </div>
