@@ -24,13 +24,13 @@ namespace WebForms_MovieManager.Components.MovieSearch
         protected global::System.Web.UI.WebControls.Button btnToggleAdvanced;
 
         /// <summary>
-        /// txtsearchTerm control.
+        /// txtSearchTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtsearchTerm;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchTerm;
 
         /// <summary>
         /// btnSearch control.

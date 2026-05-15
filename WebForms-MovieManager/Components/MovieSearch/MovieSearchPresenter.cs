@@ -11,23 +11,19 @@ using WebForms_MovieManager.Services;
 
 namespace WebForms_MovieManager.Components.MovieSearch
 {
-    public class MovieSearchPresenter
-        : BaseComponentPresenter<IMovieSearchView, IEnumerable<Movie>>
+    public class MovieSearchPresenter: BaseComponentPresenter<IMovieSearchView, IEnumerable<Movie>>
     {
         private readonly IMovieRepository _repository;        
 
-        public MovieSearchPresenter(
-            IMovieSearchView view,
-            IMovieRepository repository,
-            IErrorLogger logger = null) 
+        public MovieSearchPresenter(IMovieSearchView view, IMovieRepository repository, IErrorLogger logger = null) 
             : base(view, logger)
         {
             _repository = repository;
             _logger = logger ?? new ErrorLogger();
-            SubscribeTosearchEvents();
+            SubscribeToSearchEvents();
         }
 
-        private void SubscribeTosearchEvents()
+        private void SubscribeToSearchEvents()
         {
             View.SearchTriggered += OnSearchTriggered;
             View.SearchCleared += OnSearchCleared;
@@ -85,7 +81,7 @@ namespace WebForms_MovieManager.Components.MovieSearch
                                 .Distinct()
                                 .OrderBy(g => g);
 
-                View.AvailablYears = allMovies
+                View.AvailableYears = allMovies
                                     .Select(m => m.ReleaseYear)
                                     .Distinct()
                                     .OrderByDescending(y => y);

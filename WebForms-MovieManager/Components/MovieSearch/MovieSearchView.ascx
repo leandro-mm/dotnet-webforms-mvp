@@ -16,7 +16,7 @@
 
     <div class="search-basic">
         <div class="search-input-group">
-            <asp:TextBox ID="txtsearchTerm" 
+            <asp:TextBox ID="txtSearchTerm" 
                 runat="server" 
                 placeholder="search by title or director..."
                 CssClass="search-input" />

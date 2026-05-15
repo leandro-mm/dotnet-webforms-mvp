@@ -5,8 +5,7 @@ using WebForms_MovieManager.Services;
 
 namespace WebForms_MovieManager.Components.Base
 {
-    public abstract class BaseComponentPresenter<TView, TModel>
-        : IComponentPresenter<TView, TModel>
+    public abstract class BaseComponentPresenter<TView, TModel>: IComponentPresenter<TView, TModel>
         where TView : IComponentView<TModel> 
         where TModel : class
     {
