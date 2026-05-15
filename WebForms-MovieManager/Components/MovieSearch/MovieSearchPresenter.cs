@@ -11,11 +11,15 @@ using WebForms_MovieManager.Services;
 
 namespace WebForms_MovieManager.Components.MovieSearch
 {
-    public class MovieSearchPresenter: BaseComponentPresenter<IMovieSearchView, IEnumerable<Movie>>
+    public class MovieSearchPresenter
+        : BaseComponentPresenter<IMovieSearchView, IEnumerable<Movie>>
     {
         private readonly IMovieRepository _repository;        
 
-        public MovieSearchPresenter(IMovieSearchView view, IMovieRepository repository, IErrorLogger logger = null) 
+        public MovieSearchPresenter(
+            IMovieSearchView view, 
+            IMovieRepository repository, 
+            IErrorLogger logger = null) 
             : base(view, logger)
         {
             _repository = repository;
@@ -33,7 +37,7 @@ namespace WebForms_MovieManager.Components.MovieSearch
         #region Events
         private void OnFilterChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            LoadData();
         }
 
         private void OnSearchCleared(object sender, EventArgs e)

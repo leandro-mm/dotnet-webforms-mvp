@@ -41,7 +41,7 @@ namespace WebForms_MovieManager.Components.Base
             try
             {
                 View.SetLoadingState(true);
-                var data = OnLoadData();
+                TModel data = OnLoadData();
                 View.DataSource = data;
                 View.BindData();
             }
