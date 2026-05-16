@@ -15,15 +15,6 @@ namespace WebForms_MovieManager.Components.MovieSearch
     {
 
         /// <summary>
-        /// btnToggleAdvanced control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnToggleAdvanced;
-
-        /// <summary>
         /// txtSearchTerm control.
         /// </summary>
         /// <remarks>
@@ -40,6 +31,15 @@ namespace WebForms_MovieManager.Components.MovieSearch
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
+
+        /// <summary>
+        /// btnToggleAdvanced control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnToggleAdvanced;
 
         /// <summary>
         /// btnClear control.

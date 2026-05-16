@@ -42,15 +42,12 @@ namespace WebForms_MovieManager.Components.MovieSearch
 
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            // Trigger search logic
-            System.Diagnostics.Debug.WriteLine("MovieSearchView SearchTriggered btnSearch_Click");
+        {            
             SearchTriggered?.Invoke(this, EventArgs.Empty);
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("MovieSearchView SearchCleared btnClear_Click");
+        {            
             SearchCleared?.Invoke(this, EventArgs.Empty);
         }
 
@@ -62,20 +59,17 @@ namespace WebForms_MovieManager.Components.MovieSearch
         }
 
         protected void ddlGenre_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlGenre_SelectedIndexChanged");
+        {            
             FilteredChange?.Invoke(this, EventArgs.Empty);
         }
 
         protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlYear_SelectedIndexChanged");
+        {            
             FilteredChange?.Invoke(this, EventArgs.Empty);
         }
 
         protected void ddlRating_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("MovieSearchView FilteredChange ddlRating_SelectedIndexChanged");
+        {            
             FilteredChange?.Invoke(this, EventArgs.Empty);
         }
 
@@ -193,13 +187,10 @@ namespace WebForms_MovieManager.Components.MovieSearch
         public void BindData()
         {
             rptResults.DataBind();
-            System.Diagnostics.Debug.WriteLine("MovieSearchView ComponentDatachanged BindData");
-            //ComponentDatachanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void ClearData()
-        {
-            System.Diagnostics.Debug.WriteLine("MovieSearchView ComponentDatachanged ClearData");
+        {            
             rptResults.DataSource = null;
             rptResults.DataBind();
             ComponentDatachanged?.Invoke(this, EventArgs.Empty);

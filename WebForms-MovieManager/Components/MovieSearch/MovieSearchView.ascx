@@ -5,16 +5,7 @@
 
 <link href="../../Content/MovieSearch.css" rel="stylesheet" />
 
-<div class="movie-search-component">
-    <div class="search-header">
-        <h3>Search Movies</h3>
-
-        <asp:Button ID="btnToggleAdvanced" 
-            runat="server" 
-            Text="Advanced Search"
-            Cssclass="btn-toggle" 
-            OnClick="btnToggleAdvanced_Click" />
-    </div>
+<div class="movie-search-component">    
 
     <div class="search-basic">
         <div class="search-input-group">
@@ -23,9 +14,9 @@
                 placeholder="search by title or director..."
                 CssClass="search-input" />
 
-            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn-search" OnClick="btnSearch_Click" />
-
-            <asp:Button ID="btnClear" runat="server" Text="Clear" Cssclass="btn-clear" OnClick="btnClear_Click" />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn-search" OnClick="btnSearch_Click" CausesValidation="false"/>
+            <asp:Button ID="btnToggleAdvanced" runat="server" Text="Advanced Search" Cssclass="btn-toggle"  OnClick="btnToggleAdvanced_Click" CausesValidation="false"/>
+            <asp:Button ID="btnClear" runat="server" Text="Clear" Cssclass="btn-clear" OnClick="btnClear_Click" CausesValidation="false"/>
         </div>
     </div>
 
