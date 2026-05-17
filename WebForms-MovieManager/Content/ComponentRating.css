@@ -1,0 +1,85 @@
+﻿.rating-control {
+    position: relative;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+.stars {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.2s;
+}
+    .star:hover,
+    .star.active {
+        color: #ffc107;
+    }
+    .star.hover {
+        color: #ffc107;
+    }
+.rating-info {
+    margin-top: 10px;
+    font-size: 12px;
+}
+.rating-value {
+    font-weight: bold;
+    color: #ffc107;
+    margin-right: 10px;
+}
+.votes-count {
+    color: #666;
+}
+.rating-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+.bin-save-rating, .bin-clear-rating {
+    padding: 5px 19px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer,
+}
+.bin-save-rating {
+    background: #28a745;
+    color: white;
+}
+.bin-clear-rating {
+    background: #dc3545;
+    color: white;
+}
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #F3F3F3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin is linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

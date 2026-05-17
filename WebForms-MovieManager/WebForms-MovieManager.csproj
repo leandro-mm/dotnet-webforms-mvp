@@ -120,7 +120,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\gobalerror.css" />
-    <Content Include="Content\MovieSearch.css" />
+    <Content Include="Content\ComponentRating.css" />
+    <Content Include="Content\ComponentMovieSearch.css" />
     <Content Include="Content\FormMovieManagement.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ErrorPages\GlobalError.aspx" />
@@ -155,6 +156,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\WebForms\RatingControl.js" />
     <Content Include="WebForms\FormMovieManagement.aspx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
@@ -223,6 +225,7 @@
       <DependentUpon>PagedGridViewView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Components\RatingControl\IRatingControlView.cs" />
+    <Compile Include="Components\RatingControl\RatingChangedEventArgs.cs" />
     <Compile Include="Components\RatingControl\RatingControl.ascx.cs">
       <DependentUpon>RatingControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

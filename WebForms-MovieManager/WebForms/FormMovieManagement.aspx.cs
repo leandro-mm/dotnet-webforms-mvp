@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebForms_MovieManager.Components.RatingControl;
 using WebForms_MovieManager.Models;
 using WebForms_MovieManager.Presenters;
 using WebForms_MovieManager.Repositories;
@@ -99,8 +101,7 @@ namespace WebForms_MovieManager.WebForms
         {
             if (!IsPostBack)
             {
-                _presenter = new MoviePresenter(this, new MovieRepository());
-                LoadMoviesEvent?.Invoke(this, EventArgs.Empty);
+                LoadMovies();
             }
 
             //initialize presenter on every postback
@@ -108,6 +109,13 @@ namespace WebForms_MovieManager.WebForms
             {
                 _presenter = new MoviePresenter(this, new MovieRepository());
             }
+        }
+
+        private void LoadMovies()
+        {
+            // Load movies from repository
+            // gvMovies.DataSource = movies;
+            // gvMovies.DataBind();
         }
 
         protected void gvMovies_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,7 +201,41 @@ namespace WebForms_MovieManager.WebForms
 
         protected void ddlGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var movieId = Convert.ToInt32(gvMovies.SelectedDataKey.Value);
+            var movie = GetMovieById(movieId);
 
+            if (movie != null)
+            {
+                lblSelectedTitle.Text = movie.MovieTitle;
+                lblSelectedDirector.Text = movie.Director;
+                lblSelectedYear.Text = movie.ReleaseYear.ToString();
+                lblSelectedGenre.Text = movie.Genre;
+                detailRatingControl.MovieId = movie.Id;
+                detailRatingControl.CurrentRate = movie.Rating;
+                pnlMovieDetail.Visible = true;
+            }
+        }
+
+        private Movie GetMovieById(int movieId)
+        {
+            // ImpLement' movie retrievaL from repository
+            return new Movie();
+        }
+
+        protected void gvMovies_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var movie = (Movie)e.Row.DataItem;
+                var ratingControl = (RatingControl)e.Row.FindControl("RatingControl");
+
+                if (ratingControl != null)
+                {
+                    ratingControl.MovieId = movie.Id;
+                    ratingControl.CurrentRate = movie.Rating;
+                    ratingControl.IsReadOnly = false;
+                }
+            }
         }
     }
 }
