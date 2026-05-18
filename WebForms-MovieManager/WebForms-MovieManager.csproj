@@ -204,6 +204,11 @@
     </Compile>
     <Compile Include="Components\Base\IComponentPresenter.cs" />
     <Compile Include="Components\Base\IComponentView.cs" />
+    <Compile Include="Components\Communication\ComponentEventAggregator.cs" />
+    <Compile Include="Components\Communication\IcomponentEvent.cs" />
+    <Compile Include="Components\Communication\IComponentEventAggregator.cs" />
+    <Compile Include="Components\Communication\MovieSelectedEvent.cs" />
+    <Compile Include="Components\Communication\RatingUpdatedEvent.cs" />
     <Compile Include="Components\MovieSearch\IMovieSearchView.cs" />
     <Compile Include="Components\MovieSearch\MovieSearchModel.cs" />
     <Compile Include="Components\MovieSearch\MovieSearchPresenter.cs" />
