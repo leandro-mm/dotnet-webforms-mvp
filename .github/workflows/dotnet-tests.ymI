@@ -19,16 +19,31 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
     
+    - name: Find solution file
+      run: |
+        echo "Looking for .sln files..."
+        dir *.sln
+        echo "SOLUTION_FILE=$(dir /b *.sln)" >> $env:GITHUB_ENV
+    
     - name: Restore NuGet packages
-      run: nuget restore YourSolutionName.sln
+      run: nuget restore %SOLUTION_FILE%
     
     - name: Build Solution
-      run: msbuild YourSolutionName.sln /p:Configuration=Release
+      run: msbuild %SOLUTION_FILE% /p:Configuration=Release
     
-    # 👇 TESTS GO HERE - AFTER BUILD 👇
     - name: Run Unit Tests
       run: |
-        # Find and run all test projects
-        for /r %i in (*Tests.dll) do @echo %i
-        # Or specifically run vstest.console.exe
-        # "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" **\bin\Release\*Tests.dll
+        echo "Searching for test DLLs..."
+        dir /s *.Tests.dll
+        dir /s *Test*.dll
+        
+        echo "Running tests..."
+        vstest.console.exe **\bin\Release\*.Tests.dll /Logger:trx /ResultsDirectory:TestResults
+      continue-on-error: false
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: TestResults
