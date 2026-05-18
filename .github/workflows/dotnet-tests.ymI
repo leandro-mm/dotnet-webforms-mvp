@@ -1,0 +1,34 @@
+name: WebForms CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    
+    - name: Restore NuGet packages
+      run: nuget restore YourSolutionName.sln
+    
+    - name: Build Solution
+      run: msbuild YourSolutionName.sln /p:Configuration=Release
+    
+    # 👇 TESTS GO HERE - AFTER BUILD 👇
+    - name: Run Unit Tests
+      run: |
+        # Find and run all test projects
+        for /r %i in (*Tests.dll) do @echo %i
+        # Or specifically run vstest.console.exe
+        # "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" **\bin\Release\*Tests.dll
