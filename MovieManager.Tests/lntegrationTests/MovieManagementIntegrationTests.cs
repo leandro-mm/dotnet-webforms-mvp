@@ -83,7 +83,6 @@ namespace MovieManager.Tests.lntegrationTests
             //Assert - Movie was added
             view.ValidationErrors.Should().NotBeEmpty();
             repository.GetAllMovies().Count().Should().Be(initialCount);
-
         }
     }
 }
