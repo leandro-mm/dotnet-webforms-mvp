@@ -20,23 +20,29 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
     
-    - name: List files to debug
-      run: dir /s *.sln
+    - name: Find solution file
+      shell: cmd
+      run: dir *.sln
     
     - name: Restore NuGet packages
+      shell: cmd
       run: nuget restore *.sln
     
     - name: Build Solution
+      shell: cmd
       run: msbuild *.sln /p:Configuration=Release
     
     - name: Find and run tests
+      shell: cmd
       run: |
-        echo "Looking for test files..."
+        echo Looking for test DLLs...
         dir /s *.Tests.dll
-        if exist **\*.Tests.dll (
-          echo "Running tests..."
+        if exist *.Tests.dll (
+          echo Running tests...
+          vstest.console.exe *.Tests.dll /Logger:trx
+        ) else if exist **\*.Tests.dll (
+          echo Running tests in subfolders...
           vstest.console.exe **\*.Tests.dll /Logger:trx
         ) else (
-          echo "No test DLLs found - skipping tests"
+          echo No test DLLs found
         )
-      shell: cmd
