@@ -22,20 +22,24 @@ jobs:
     
     - name: Restore NuGet packages
       shell: cmd
-      run: nuget restore WebForms.sln   
+      run: nuget restore MovieManager.sln
     
     - name: Build Solution
       shell: cmd
-      run: msbuild WebForms.sln /p:Configuration=Release   
+      run: msbuild MovieManager.sln /p:Configuration=Release
     
-    - name: Find and run tests
+    - name: Run Unit Tests
       shell: cmd
       run: |
-        echo Looking for test DLLs...
-        dir /s *.Tests.dll
-        if exist *.Tests.dll (
-          echo Running tests...
-          vstest.console.exe *.Tests.dll /Logger:trx
-        ) else (
-          echo No test DLLs found
-        )
+        echo "Finding test DLLs..."
+        dir /s MovieManager.Tests.dll
+        
+        echo "Running tests..."
+        vstest.console.exe MovieManager.Tests\bin\Release\net472\MovieManager.Tests.dll /Logger:trx
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: **/TestResults/*.trx
