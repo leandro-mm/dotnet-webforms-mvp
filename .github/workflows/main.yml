@@ -22,11 +22,11 @@ jobs:
     
     - name: Restore NuGet packages
       shell: cmd
-      run: nuget restore MovieManager.sln
+      run: nuget restore WebForms.sln
     
     - name: Build Solution
       shell: cmd
-      run: msbuild MovieManager.sln /p:Configuration=Release
+      run: msbuild WebForms.sln /p:Configuration=Release
     
     - name: Run Unit Tests
       shell: cmd
