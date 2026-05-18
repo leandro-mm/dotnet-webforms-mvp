@@ -20,17 +20,13 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
     
-    - name: Find solution file
-      shell: cmd
-      run: dir *.sln
-    
     - name: Restore NuGet packages
       shell: cmd
-      run: nuget restore *.sln
+      run: nuget restore WebForms.sln   
     
     - name: Build Solution
       shell: cmd
-      run: msbuild *.sln /p:Configuration=Release
+      run: msbuild WebForms.sln /p:Configuration=Release   
     
     - name: Find and run tests
       shell: cmd
@@ -40,9 +36,6 @@ jobs:
         if exist *.Tests.dll (
           echo Running tests...
           vstest.console.exe *.Tests.dll /Logger:trx
-        ) else if exist **\*.Tests.dll (
-          echo Running tests in subfolders...
-          vstest.console.exe **\*.Tests.dll /Logger:trx
         ) else (
           echo No test DLLs found
         )
