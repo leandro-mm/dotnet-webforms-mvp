@@ -72,6 +72,16 @@
                 <div class="movie-year">Year: <%# Eval("ReleaseYear") %></div>
                 <div class="movie-genre">Genre: <%# Eval("Genre") %></div>
                 <div class="movie-rating">Rating: <%# Eval("Rating") %> *</div>
+
+                <!-- Select Button -->
+                    <asp:LinkButton ID="btnSelectMovie" 
+                        runat="server" 
+                        CommandName="SelectMovie" 
+                        CommandArgument='<%# Eval("Id") %>'
+                        CssClass="btn-select-movie"
+                        Text="Select Movie" 
+                        CausesValidation="false" />
+                </div>
             </div>
         </ItemTemplate>
 

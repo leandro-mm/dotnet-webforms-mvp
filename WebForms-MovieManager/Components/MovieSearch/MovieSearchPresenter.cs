@@ -74,6 +74,26 @@ namespace WebForms_MovieManager.Components.MovieSearch
         #endregion
 
         #region MovieSearchPresenter Methods
+
+        public void RefreshMovieRating(int movieId, double newRating)
+        {
+            // Get current movies from the view
+            var movies = View.DataSource?.ToList();
+
+            if (movies != null)
+            {
+                // Find and update the specific movie's rating
+                var movie = movies.FirstOrDefault(m => m.Id == movieId);
+                if (movie != null)
+                {
+                    movie.Rating = (int)newRating;
+
+                    // Rebind to refresh the display
+                    View.DataSource = movies;
+                    View.BindData();
+                }
+            }
+        }
         private void LoadSearchOptions()
         {
             try

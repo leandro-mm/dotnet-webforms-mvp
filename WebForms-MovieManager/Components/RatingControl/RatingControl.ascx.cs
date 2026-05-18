@@ -3,7 +3,7 @@ using Microsoft.Ajax.Utilities;
 using System;
 
 using System.Web.UI;
-
+using WebForms_MovieManager.Components.Communication;
 using WebForms_MovieManager.Repositories;
 using WebForms_MovieManager.Services;
 
@@ -121,6 +121,16 @@ namespace WebForms_MovieManager.Components.RatingControl
         protected void btnSaveRating_Click(object sender, EventArgs e)
         {
             RatingSaved?.Invoke(this, EventArgs.Empty);
+
+            // Publish the rating updated event
+            var ratingEvent = new RatingUpdatedEvent
+            {
+                SourceComponentId = this.ComponentId,
+                MovieId = this.MovieId,
+                NewRating = this.CurrentRate
+            };
+
+            EventAggregatorProvider.Instance.Publish(ratingEvent);
         }
 
         protected void btnClearRating_Click(object sender, EventArgs e)

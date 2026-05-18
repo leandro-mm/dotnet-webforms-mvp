@@ -1,9 +1,11 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebForms_MovieManager.Components.Communication;
 using WebForms_MovieManager.Models;
 using WebForms_MovieManager.Repositories;
 using WebForms_MovieManager.Services;
@@ -16,17 +18,76 @@ namespace WebForms_MovieManager.Components.MovieSearch
         #region MovieSearchView stuffs
 
         private MovieSearchPresenter _presenter;
+        private bool _isSubscribed = false; // Add subscription tracking
 
         protected void Page_Load(object sender, EventArgs e)
         {
             InitializePresenter();
 
+            // Subscribe to rating updates
+            if (!_isSubscribed)
+            {
+                EventAggregatorProvider.Instance.Subscribe<RatingUpdatedEvent>(OnRatingUpdated);
+                _isSubscribed = true;
+            }
+
             if (!IsPostBack)
             {
+                rptResults.ItemCommand += rptResults_ItemCommand;
                 ComponentLoaded?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                // Ensure ItemCommand is wired on postback as well
+                rptResults.ItemCommand += rptResults_ItemCommand;
+            }
+        }
+        protected override void OnUnload(EventArgs e)
+        {
+            if (_isSubscribed)
+            {
+                EventAggregatorProvider.Instance.Unsubscribe<RatingUpdatedEvent>(OnRatingUpdated);
+            }
+            base.OnUnload(e);
+        }
+
+        private void OnRatingUpdated(RatingUpdatedEvent ratingEvent)
+        {
+            if (_presenter != null)
+            {
+                // Refresh the rating for the specific movie
+                _presenter.RefreshMovieRating(ratingEvent.MovieId, ratingEvent.NewRating);
             }
         }
 
+        protected void rptResults_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "SelectMovie")
+            {
+                int movieId = Convert.ToInt32(e.CommandArgument);
+
+                // Get the full movie object from the data source
+                var movies = DataSource as IEnumerable<Movie>;
+                var selectedMovie = movies?.FirstOrDefault(m => m.Id == movieId);
+
+                if (selectedMovie != null)
+                {
+                    OnMovieSelected(movieId, selectedMovie);
+                }
+            }
+        }
+        // Publish movie selected event
+        private void OnMovieSelected(int movieId, Movie movie)
+        {
+            var selectedEvent = new MovieSelectedEvent
+            {
+                SourceComponentId = this.ComponentId,
+                MovieId = movieId,
+                Movie = movie
+            };
+
+            EventAggregatorProvider.Instance.Publish(selectedEvent);
+        }
         private void InitializePresenter()
         {
             if (_presenter == null)

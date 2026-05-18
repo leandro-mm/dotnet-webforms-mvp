@@ -77,6 +77,8 @@ namespace MovieManager.Tests.Components
 
             // Assert
             Assert.Equal(2, shownResultCount);
+
+            // HighlightSearch should NOT be called when there's no search term
             mockView.Verify(v => v.HighlightSearch(It.IsAny<string>()), Times.Never);
 
         }

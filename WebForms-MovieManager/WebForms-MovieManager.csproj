@@ -205,6 +205,7 @@
     <Compile Include="Components\Base\IComponentPresenter.cs" />
     <Compile Include="Components\Base\IComponentView.cs" />
     <Compile Include="Components\Communication\ComponentEventAggregator.cs" />
+    <Compile Include="Components\Communication\EventAggregatorProvider.cs" />
     <Compile Include="Components\Communication\IcomponentEvent.cs" />
     <Compile Include="Components\Communication\IComponentEventAggregator.cs" />
     <Compile Include="Components\Communication\MovieSelectedEvent.cs" />
