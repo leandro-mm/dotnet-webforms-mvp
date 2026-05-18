@@ -61,7 +61,6 @@ namespace MovieManager.Tests.lntegrationTests
             view.SuccessMessage.Should().Contain("deleted");
             view.RaiseLoadMovieEvent();
             view.MoviesDataSource.Should().NotContain(m => m.Id == addedMovie.Id);
-
         }
 
         [Fact]
