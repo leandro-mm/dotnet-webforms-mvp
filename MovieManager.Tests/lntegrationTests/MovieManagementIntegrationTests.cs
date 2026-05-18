@@ -1,17 +1,15 @@
 ﻿using FluentAssertions;
 using MovieManager.Tests.Mocks;
 using System;
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebForms_MovieManager.Models;
+
 using WebForms_MovieManager.Presenters;
 using WebForms_MovieManager.Repositories;
 
 namespace MovieManager.Tests.lntegrationTests
 {
-    public class MovieManagementlntegrationTests
+    public class MovieManagementIntegrationTests
     {
         [Fact]
         public void CompleteMovieWorkflow_ShouldWorkCorrectly()
