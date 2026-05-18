@@ -149,9 +149,8 @@ public class GlobalErrorHandlerModule : IHttpModule
 - To enable Health Monitoring, we need to add a <healthMonitoring> section to the Web.config file
 - However the manual logging we've built logs more custom information and give us more complete control, this way we wil not implement Health Monitoring via Web.config file.
 
-## Custom Reusable Components
+## Custom Reusable Components with Web User Control
 - We're building custom reusable components that integrate seamlessly with the MVP architecture while maintaining separation of concerns and testability.
-- **Web User Control**
 
  |  |  |
 |---------|------------|
