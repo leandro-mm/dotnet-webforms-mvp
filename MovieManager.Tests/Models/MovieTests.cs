@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace MovieManager.Tests.Models
 {
-    internal class MovieTests
+    public class MovieTests
     {
+       
+
     }
 }
