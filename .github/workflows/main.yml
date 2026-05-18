@@ -1,0 +1,44 @@
+name: WebForms CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    
+    - name: Restore NuGet packages
+      shell: cmd
+      run: nuget restore MovieManager.sln
+    
+    - name: Build Solution
+      shell: cmd
+      run: msbuild MovieManager.sln /p:Configuration=Release
+    
+    - name: Run Unit Tests
+      shell: cmd
+      run: |
+        echo Finding test DLLs...
+        dir /s MovieManager.Tests.dll
+        echo Running tests...
+        vstest.console.exe MovieManager.Tests\bin\Release\net472\MovieManager.Tests.dll /Logger:trx
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: TestResults
