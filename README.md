@@ -190,3 +190,6 @@ public class GlobalErrorHandlerModule : IHttpModule
 | :---: |
 | <img src="WebForms-MovieManager/Assets/Events/5-RatingUpdateFlow.svg" width="1000"> |
 
+| Key Benefits|
+| :---: |
+| <img src="WebForms-MovieManager/Assets/Events/key_benefits.png" width="500"> |
