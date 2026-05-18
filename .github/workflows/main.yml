@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,27 +20,24 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
     
-    - name: Find solution file
-      run: |
-        echo "Looking for .sln files..."
-        dir *.sln
-        echo "SOLUTION_FILE=$(dir /b *.sln)" >> $env:GITHUB_ENV
+    - name: Setup VSTest
+      uses: darenm/Setup-VSTest@v1
     
     - name: Restore NuGet packages
-      run: nuget restore %SOLUTION_FILE%
+      shell: cmd
+      run: nuget restore WebForms.sln
     
     - name: Build Solution
-      run: msbuild %SOLUTION_FILE% /p:Configuration=Release
+      shell: cmd
+      run: msbuild WebForms.sln /p:Configuration=Release
     
     - name: Run Unit Tests
+      shell: cmd
       run: |
-        echo "Searching for test DLLs..."
-        dir /s *.Tests.dll
-        dir /s *Test*.dll
-        
-        echo "Running tests..."
-        vstest.console.exe **\bin\Release\*.Tests.dll /Logger:trx /ResultsDirectory:TestResults
-      continue-on-error: false
+        echo Finding test DLLs...
+        dir /s MovieManager.Tests.dll
+        echo Running tests...
+        vstest.console.exe MovieManager.Tests\bin\Release\net472\MovieManager.Tests.dll /Logger:trx
     
     - name: Upload test results
       if: always()
