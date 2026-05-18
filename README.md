@@ -22,7 +22,10 @@ For a .NET WebForms application, MVP is an excellent and well-suited architectur
 
 # Global Error Handling
 - The purpose is to have request errors handled as following:
-![Presenter Image](WebForms-MovieManager/Assets/request_error_handling_aditional.svg)
+
+||
+| :---: |
+| <img src="WebForms-MovieManager/Assets/request_error_handling_aditional.svg" width="700"> |
   
 ## Necessary settings
 ### **Global.asax** Application-Level Error Handling
@@ -147,24 +150,44 @@ public class GlobalErrorHandlerModule : IHttpModule
 - However the manual logging we've built logs more custom information and give us more complete control, this way we wil not implement Health Monitoring via Web.config file.
 
 ## Custom Reusable Components
-- We're building custom reusable components that integrate seamlessly with the MVP architecture while maintaining separation of concerns and testability.- 
-- **Web User Control**   
-  - **Reusability**:  
-    - User controls are ideal for creating "chunks" of UI that appear on multiple pages, such as headers, footers, search boxes, or navigation menus
-    - It encapsulates UI and functionality across multiple web pages.
-  - In Solution Explorer, right-click your project or a specific folder, then select Add > New Item > Choose Web User Control from the list of templates
-  - A user control differs from a standard **.aspx ** web page in a few important ways:  
-    -  The file must have the .ascx extension
-    -  @Control Directive: The top of the file uses <%@ Control ... %> instead of <%@ Page ... %
-    - .ascx files cannot contain <html>, <body>, or <form> tags
-- Adding Content to Your User Control
-  - You can drag and drop standard ASP.NET server controls (like TextBox, Label, DataList) and HTML elements onto the design surface
-  - Code-Behind: You can double-click the control in design view to create event handlers (like Page_Load) in its associated code-behind file (.ascx.cs or .ascx.vb)
-- using a user control on an .aspx page
-  -  You must register it at the top of that page using the <%@ Register %> directive
-  -  You'll need to specify the src (path to the .ascx file), tagname, and tagprefix
-  -  User controls cannot be accessed or run directly in a browser. They must be embedded within a standard .aspx web form  
+- We're building custom reusable components that integrate seamlessly with the MVP architecture while maintaining separation of concerns and testability.
+- **Web User Control**
+
+ |  |  |
+|---------|------------|
+|Reusability|User controls are ideal for creating "chunks" of UI that appear on multiple pages, such as headers, footers, search boxes, or navigation menus.|
+||It encapsulates UI and functionality across multiple web pages|
+|Implementation|In Solution Explorer, right-click your project or a specific folder, then select Add > New Item > Choose Web User Control from the list of templates|
+||You can drag and drop standard ASP.NET server controls (like TextBox, Label, DataList) and HTML elements onto the design surface|
+||You can double-click the control in design view to create event handlers (like Page_Load) in its associated code-behind file (.ascx.cs or .ascx.vb)|
+||You must register it at the top of that page using the <%@ Register %> directive|
+||You'll need to specify the src (path to the .ascx file), tagname, and tagprefix|
+|| User controls cannot be accessed or run directly in a browser. They must be embedded within a standard .aspx web form |
+|user control x .aspx  web page| user control has the .ascx extension |
+|| @Control Directive: The top of the file uses <%@ Control ... %> instead of <%@ Page ... % |
+|| .ascx files cannot contain <html>, <body>, or <form> tags|
+
   
-### Components Structure
+### Reusable Components Structure
 ![Presenter Image](WebForms-MovieManager/Assets/Components_arch.png)
+
+#### Components Communication
+- Class Diagram
+![Presenter Image](WebForms-MovieManager/Assets/Events/1-Class-Diagram.svg)
+
+| Components Diagram|
+| :---: |
+| <img src="WebForms-MovieManager/Assets/Events/2-Component-Diagram.svg" width="700"> |
+
+| Event Flow|
+| :---: |
+| <img src="WebForms-MovieManager/Assets/Events/3-Event-Flow.svg" width="400"> |
+
+| Movie Selection|
+| :---: |
+| <img src="WebForms-MovieManager/Assets/Events/4-Movie-Selection-Flow.svg" width="1000"> |
+
+| Rating Update Flow|
+| :---: |
+| <img src="WebForms-MovieManager/Assets/Events/5-RatingUpdateFlow.svg" width="1000"> |
 
